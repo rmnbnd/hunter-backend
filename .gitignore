@@ -8,3 +8,6 @@ gradlew.bat
 *.iws
 *.iml
 *.ipr
+
+### NODEJS ###
+node_modules
