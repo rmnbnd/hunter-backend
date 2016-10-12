@@ -18,12 +18,12 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @RequestMapping(value = "/{id}",
                     method = RequestMethod.GET,
                     produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUserById(@PathVariable long id) {
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userService.findById(id);
         return Optional.ofNullable(user)
                 .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
