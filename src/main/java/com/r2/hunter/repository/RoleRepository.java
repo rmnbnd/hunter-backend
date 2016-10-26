@@ -7,7 +7,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import com.r2.hunter.domain.Role;
 import com.r2.hunter.domain.User;
 
-@RepositoryRestResource
 public interface RoleRepository extends PagingAndSortingRepository<Role, Long> {
 
     List<User> findByRoleName(@Param("roleName") String roleName);

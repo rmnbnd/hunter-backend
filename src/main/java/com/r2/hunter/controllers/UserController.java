@@ -14,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.Optional;
 
 @RepositoryRestController
-@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/{id}",
+    @RequestMapping(value = "/users/{id}",
                     method = RequestMethod.GET,
                     produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
