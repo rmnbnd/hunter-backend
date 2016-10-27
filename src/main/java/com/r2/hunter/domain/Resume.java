@@ -1,15 +1,15 @@
 package com.r2.hunter.domain;
 
+import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Objects;
 
 @Entity
 public class Resume implements Serializable {
@@ -18,13 +18,9 @@ public class Resume implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long resumeId;
 
-    private String firstName;
-
-    private String lastName;
-
-    private Date birthDate;
-
-    private String gender;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "performerId")
+    private Performer performer;
 
     private String country;
 
@@ -33,7 +29,7 @@ public class Resume implements Serializable {
     private String phone;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "jobId")
     private Job desiredJob;
 
     public long getResumeId() {
@@ -42,38 +38,6 @@ public class Resume implements Serializable {
 
     public void setResumeId(long resumeId) {
         this.resumeId = resumeId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getCountry() {
@@ -108,24 +72,29 @@ public class Resume implements Serializable {
         this.desiredJob = desiredJob;
     }
 
+    public Performer getPerformer() {
+        return performer;
+    }
+
+    public void setPerformer(Performer performer) {
+        this.performer = performer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
-        return Objects.equals(firstName, resume.firstName) &&
-                Objects.equals(lastName, resume.lastName) &&
-                Objects.equals(birthDate, resume.birthDate) &&
-                Objects.equals(gender, resume.gender) &&
-                Objects.equals(country, resume.country) &&
+        return Objects.equals(country, resume.country) &&
                 Objects.equals(city, resume.city) &&
                 Objects.equals(phone, resume.phone) &&
+                Objects.equals(performer, resume.performer) &&
                 Objects.equals(desiredJob, resume.desiredJob);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, birthDate, gender, country, city, phone, desiredJob);
+        return Objects.hash(country, city, phone, desiredJob, performer);
     }
 
 }

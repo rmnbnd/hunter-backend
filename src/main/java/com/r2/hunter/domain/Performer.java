@@ -1,16 +1,15 @@
 package com.r2.hunter.domain;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import java.io.Serializable;
-import java.util.Objects;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Performer implements Serializable {
@@ -25,6 +24,10 @@ public class Performer implements Serializable {
     @JoinColumn(name = "customerId")
     private Customer customer;
 
+    private Date birthDate;
+
+    private String gender;
+
     private String lastName;
 
     private String email;
@@ -35,8 +38,7 @@ public class Performer implements Serializable {
     @JoinColumn(name = "groupId")
     private Group group;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToMany(mappedBy = "performer")
     private Resume resume;
 
     @ManyToOne
@@ -115,6 +117,22 @@ public class Performer implements Serializable {
         this.customer = customer;
     }
 
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -127,12 +145,14 @@ public class Performer implements Serializable {
                 Objects.equals(resume, performer.resume) &&
                 Objects.equals(group, performer.group) &&
                 Objects.equals(customer, performer.customer) &&
+                Objects.equals(birthDate, performer.birthDate) &&
+                Objects.equals(gender, performer.gender) &&
                 Objects.equals(role, performer.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email, password, resume, role, group, customer);
+        return Objects.hash(firstName, lastName, email, password, resume, role, group, customer, birthDate, gender);
     }
 
 }
