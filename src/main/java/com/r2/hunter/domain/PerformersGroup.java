@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Group implements Serializable {
+public class PerformersGroup implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,7 +49,7 @@ public class Group implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Group group = (Group) o;
+        PerformersGroup group = (PerformersGroup) o;
         return Objects.equals(groupName, group.groupName) &&
                 Objects.equals(performers, group.performers);
     }

@@ -2,6 +2,7 @@ package com.r2.hunter.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,10 +37,10 @@ public class Performer implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "groupId")
-    private Group group;
+    private PerformersGroup group;
 
     @OneToMany(mappedBy = "performer")
-    private Resume resume;
+    private List<Resume> resume;
 
     @ManyToOne
     @JoinColumn(name = "roleId")
@@ -85,11 +86,11 @@ public class Performer implements Serializable {
         this.password = password;
     }
 
-    public Resume getResume() {
+    public List<Resume> getResume() {
         return resume;
     }
 
-    public void setResume(Resume resume) {
+    public void setResume(List<Resume> resume) {
         this.resume = resume;
     }
 
@@ -101,11 +102,11 @@ public class Performer implements Serializable {
         this.role = role;
     }
 
-    public Group getGroup() {
+    public PerformersGroup getGroup() {
         return group;
     }
 
-    public void setGroup(Group group) {
+    public void setGroup(PerformersGroup group) {
         this.group = group;
     }
 

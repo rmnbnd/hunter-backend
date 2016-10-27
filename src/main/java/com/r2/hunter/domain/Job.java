@@ -24,7 +24,7 @@ public class Job implements Serializable {
 
     private int experienceYears;
 
-    private int employmentType;
+    private String employmentType;
 
     public long getJobId() {
         return jobId;
@@ -74,11 +74,11 @@ public class Job implements Serializable {
         this.experienceYears = experienceYears;
     }
 
-    public int getEmploymentType() {
+    public String getEmploymentType() {
         return employmentType;
     }
 
-    public void setEmploymentType(int employmentType) {
+    public void setEmploymentType(String employmentType) {
         this.employmentType = employmentType;
     }
 
@@ -89,7 +89,7 @@ public class Job implements Serializable {
         Job job = (Job) o;
         return salary == job.salary &&
                 experienceYears == job.experienceYears &&
-                employmentType == job.employmentType &&
+                Objects.equals(employmentType, job.employmentType) &&
                 Objects.equals(jobName, job.jobName) &&
                 Objects.equals(country, job.country) &&
                 Objects.equals(city, job.city);
