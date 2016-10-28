@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS performer (
   last_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  group_id INT NOT NULL,
+  group_id INT,
   role_id INT NOT NULL,
   FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (group_id) REFERENCES performers_group(group_id) ON DELETE CASCADE ON UPDATE CASCADE,
