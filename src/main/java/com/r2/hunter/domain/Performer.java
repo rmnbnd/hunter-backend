@@ -9,8 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Performer implements Serializable {
@@ -21,9 +21,8 @@ public class Performer implements Serializable {
 
     private String firstName;
 
-    @ManyToOne
-    @JoinColumn(name = "customerId")
-    private Customer customer;
+    @ManyToMany(mappedBy = "performers")
+    private List<Vacancy> vacancies;
 
     private Date birthDate;
 
@@ -38,9 +37,6 @@ public class Performer implements Serializable {
     @ManyToOne
     @JoinColumn(name = "groupId")
     private PerformersGroup group;
-
-    @OneToMany(mappedBy = "performer")
-    private List<Resume> resume;
 
     @ManyToOne
     @JoinColumn(name = "roleId")
@@ -86,14 +82,6 @@ public class Performer implements Serializable {
         this.password = password;
     }
 
-    public List<Resume> getResume() {
-        return resume;
-    }
-
-    public void setResume(List<Resume> resume) {
-        this.resume = resume;
-    }
-
     public Role getRole() {
         return role;
     }
@@ -108,14 +96,6 @@ public class Performer implements Serializable {
 
     public void setGroup(PerformersGroup group) {
         this.group = group;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public Date getBirthDate() {
@@ -134,6 +114,14 @@ public class Performer implements Serializable {
         this.gender = gender;
     }
 
+    public List<Vacancy> getVacancies() {
+        return vacancies;
+    }
+
+    public void setVacancies(List<Vacancy> vacancies) {
+        this.vacancies = vacancies;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -143,9 +131,8 @@ public class Performer implements Serializable {
                 Objects.equals(lastName, performer.lastName) &&
                 Objects.equals(email, performer.email) &&
                 Objects.equals(password, performer.password) &&
-                Objects.equals(resume, performer.resume) &&
                 Objects.equals(group, performer.group) &&
-                Objects.equals(customer, performer.customer) &&
+                Objects.equals(vacancies, performer.vacancies) &&
                 Objects.equals(birthDate, performer.birthDate) &&
                 Objects.equals(gender, performer.gender) &&
                 Objects.equals(role, performer.role);
@@ -153,7 +140,7 @@ public class Performer implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email, password, resume, role, group, customer, birthDate, gender);
+        return Objects.hash(firstName, lastName, email, password, role, group, vacancies, birthDate, gender);
     }
 
 }

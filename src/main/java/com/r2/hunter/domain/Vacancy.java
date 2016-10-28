@@ -1,13 +1,17 @@
 package com.r2.hunter.domain;
 
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 public class Vacancy implements Serializable {
@@ -21,6 +25,12 @@ public class Vacancy implements Serializable {
     @ManyToOne
     @JoinColumn(name = "customerId")
     private Customer customer;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "vacancies_performers",
+            joinColumns = @JoinColumn(name = "vacancy_id"),
+            inverseJoinColumns = @JoinColumn(name = "performer_id"))
+    private List<Performer> performers;
 
     private String country;
 
@@ -106,6 +116,14 @@ public class Vacancy implements Serializable {
         this.customer = customer;
     }
 
+    public List<Performer> getPerformers() {
+        return performers;
+    }
+
+    public void setPerformers(List<Performer> performers) {
+        this.performers = performers;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -118,13 +136,14 @@ public class Vacancy implements Serializable {
                 Objects.equals(city, vacancy.city) &&
                 Objects.equals(description, vacancy.description) &&
                 Objects.equals(customer, vacancy.customer) &&
+                Objects.equals(performers, vacancy.performers) &&
                 Objects.equals(employmentType, vacancy.employmentType);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(vacancyName, country, city, salary, requiredExperienceYears,
-                description, employmentType, customer);
+                description, employmentType, customer, performers);
     }
 
 }

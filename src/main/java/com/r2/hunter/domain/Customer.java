@@ -39,9 +39,6 @@ public class Customer implements Serializable {
     private Role role;
 
     @OneToMany(mappedBy = "customer")
-    private List<Performer> performers;
-
-    @OneToMany(mappedBy = "customer")
     private List<Vacancy> vacancies;
 
     public long getCustomerId() {
@@ -124,14 +121,6 @@ public class Customer implements Serializable {
         this.role = role;
     }
 
-    public List<Performer> getPerformers() {
-        return performers;
-    }
-
-    public void setPerformers(List<Performer> performers) {
-        this.performers = performers;
-    }
-
     public List<Vacancy> getVacancies() {
         return vacancies;
     }
@@ -154,13 +143,12 @@ public class Customer implements Serializable {
                 Objects.equals(email, customer.email) &&
                 Objects.equals(description, customer.description) &&
                 Objects.equals(role, customer.role) &&
-                Objects.equals(performers, customer.performers) &&
                 Objects.equals(vacancies, customer.vacancies);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(companyName, country, city, site, password, phone, email, description, role, performers, vacancies);
+        return Objects.hash(companyName, country, city, site, password, phone, email, description, role, vacancies);
     }
 
 }
