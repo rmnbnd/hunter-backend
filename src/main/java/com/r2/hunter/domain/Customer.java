@@ -1,5 +1,10 @@
 package com.r2.hunter.domain;
 
+import static com.fasterxml.jackson.annotation.JsonProperty.Access;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,9 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Customer implements Serializable {
@@ -26,10 +29,12 @@ public class Customer implements Serializable {
 
     private String site;
 
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
 
     private String phone;
 
+    @Column(unique = true)
     private String email;
 
     private String description;

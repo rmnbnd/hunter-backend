@@ -6,4 +6,10 @@ public interface CustomerService {
 
     Customer findById(long id);
 
+    Customer findByEmail(String email);
+
+    Customer save(Customer customer);
+
+    Customer findAuthenticatedCustomer();
+
 }

@@ -22,4 +22,19 @@ public class PerformerServiceImpl implements PerformerService {
         return performerRepository.findOne(id);
     }
 
+    @Override
+    public Performer findByEmail(String email) {
+        return performerRepository.findByEmail(email);
+    }
+
+    @Override
+    public Performer save(Performer performer) {
+        return performerRepository.save(performer);
+    }
+
+    @Override
+    public Performer findAuthenticatedPerformer() {
+        return performerRepository.findCurrentPerformer();
+    }
+
 }

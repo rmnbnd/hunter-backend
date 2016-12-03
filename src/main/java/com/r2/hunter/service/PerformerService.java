@@ -6,4 +6,10 @@ public interface PerformerService {
 
     Performer findById(long id);
 
+    Performer findByEmail(String email);
+
+    Performer save(Performer performer);
+
+    Performer findAuthenticatedPerformer();
+
 }

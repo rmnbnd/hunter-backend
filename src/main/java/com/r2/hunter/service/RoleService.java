@@ -6,4 +6,6 @@ public interface RoleService {
 
     Role findById(long id);
 
+    Role findByName(String name);
+
 }

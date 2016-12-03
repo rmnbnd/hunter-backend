@@ -22,4 +22,19 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findOne(id);
     }
 
+    @Override
+    public Customer findByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
+
+    @Override
+    public Customer save(Customer customer) {
+        return customerRepository.save(customer);
+    }
+
+    @Override
+    public Customer findAuthenticatedCustomer() {
+        return customerRepository.findCurrentCustomer();
+    }
+
 }
